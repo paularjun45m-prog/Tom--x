@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tomex — Precision-crafted essentials from Dhaka. Built for the relentless.">
+<title>Tomex — Built for the relentless</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Silkscreen&display=swap" rel="stylesheet">
+
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;background:#050505;color:#fff;overflow-x:hidden}
+  .silk{font-family:'Silkscreen',cursive}
+  #three{position:absolute;inset:0;z-index:0}
+  #three canvas{display:block;width:100%!important;height:100%!important}
+  .vig{position:absolute;inset:0;z-index:2;background:radial-gradient(circle,transparent 0%,rgba(0,0,0,.4) 60%,rgba(0,0,0,.95) 100%);pointer-events:none}
+  .glass{background:rgba(255,255,255,.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1)}
+  .prod img{transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+  .prod:hover img{transform:scale(1.06)}
+  .prod .btn{opacity:0;transform:translateY(12px);transition:all .5s cubic-bezier(.16,1,.3,1)}
+  .prod:hover .btn{opacity:1;transform:translateY(0)}
+  .reveal{opacity:0;transform:translateY(28px);transition:all .9s cubic-bezier(.16,1,.3,1)}
+  .reveal.on{opacity:1;transform:translateY(0)}
+  @keyframes marq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .marq{animation:marq 40s linear infinite;display:flex;width:max-content}
+  @media (hover:none){
+    .prod .btn{opacity:1;transform:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .marq{animation:none}
+    .reveal{opacity:1;transform:none;transition:none}
+    .prod img,.prod .btn{transition:none}
+  }
+  ::-webkit-scrollbar{width:8px}
+  ::-webkit-scrollbar-track{background:#0a0a0a}
+  ::-webkit-scrollbar-thumb{background:#1f1f1f;border-radius:4px}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav id="nav" class="fixed top-0 inset-x-0 z-30 transition-all duration-500">
+  <div class="max-w-7xl mx-auto flex items-center justify-between px-5 sm:px-8 lg:px-12 py-5">
+    <a href="#top" aria-label="Tomex home" class="flex items-center gap-2">
+      <div class="w-2 h-2 rounded-full bg-white shadow-[0_0_12px_rgba(255,255,255,.9)]"></div>
+      <span class="text-base font-semibold tracking-tight">tomex</span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-1 glass rounded-full px-1.5 py-1.5">
+      <a href="#shop" class="rounded-full px-4 py-1.5 text-[13px] font-medium text-white/60 hover:bg-white/[.06] hover:text-white transition-colors">Shop</a>
+      <a href="#editorial" class="rounded-full px-4 py-1.5 text-[13px] font-medium text-white/60 hover:bg-white/[.06] hover:text-white transition-colors">Editorial</a>
+      <a href="#story" class="rounded-full px-4 py-1.5 text-[13px] font-medium text-white/60 hover:bg-white/[.06] hover:text-white transition-colors">Story</a>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button type="button" onclick="openCart()" aria-label="Open shopping cart" class="glass rounded-full px-4 py-2 text-[13px] font-medium flex items-center gap-2">
+        Cart <span id="cc" class="bg-white text-black rounded-full px-1.5 text-[11px] font-semibold">0</span>
+      </button>
+      <a href="https://wa.me/8801826076327" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex bg-white text-black rounded-full px-5 py-2 text-[13px] font-medium hover:bg-white/90">Shop now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="top" class="relative h-screen w-full overflow-hidden">
+  <div id="three"></div>
+  <div class="vig"></div>
+  <div class="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/70 to-transparent z-[3] pointer-events-none"></div>
+  <div class="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-black/90 to-transparent z-[3] pointer-events-none"></div>
+
+  <div class="relative z-10 h-full flex flex-col">
+    <div class="h-20"></div>
+
+    <main class="mt-auto px-5 sm:px-8 lg:px-12 pb-10 sm:pb-14 lg:pb-16">
+      <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
+
+        <div class="max-w-2xl">
+          <div class="glass rounded-full px-3 py-1 inline-flex items-center gap-2 mb-6">
+            <div class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,.9)]"></div>
+            <span class="text-[11px] uppercase tracking-[.18em] text-white/55 font-medium">New season · SS26</span>
+          </div>
+
+          <h1 class="text-[2.25rem] sm:text-5xl lg:text-[4.5rem] font-medium leading-[1.03] tracking-[-.035em]">
+            Built for the<br>
+            <span style="background:linear-gradient(to bottom,#fff,#fff7,#fff3);-webkit-background-clip:text;background-clip:text;color:transparent">relentless.</span>
+          </h1>
+
+          <p class="mt-6 max-w-md text-sm sm:text-base text-white/50 leading-relaxed">
+            Precision-crafted essentials from Tomex. Considered design, uncompromising materials, delivered to your door.
+          </p>
+
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a href="#shop" class="bg-white text-black rounded-full px-6 py-3 text-sm font-medium text-center hover:bg-white/90">Shop collection →</a>
+            <a href="#editorial" class="glass rounded-full px-6 py-3 text-sm font-medium text-center">Our story</a>
+          </div>
+
+          <div class="mt-10 flex flex-wrap gap-x-8 gap-y-4 items-center">
+            <div><div class="silk text-xl sm:text-2xl">42,500+</div><div class="text-[11px] uppercase tracking-[.18em] text-white/40 mt-1">Orders shipped</div></div>
+            <div class="w-px h-8 bg-white/10"></div>
+            <div><div class="silk text-xl sm:text-2xl">4.9★</div><div class="text-[11px] uppercase tracking-[.18em] text-white/40 mt-1">Rating</div></div>
+            <div class="w-px h-8 bg-white/10"></div>
+            <div><div class="silk text-xl sm:text-2xl">24/7</div><div class="text-[11px] uppercase tracking-[.18em] text-white/40 mt-1">Concierge</div></div>
+          </div>
+        </div>
+
+        <div class="w-full lg:w-72 flex flex-col gap-5">
+          <div class="glass rounded-2xl p-6">
+            <div class="flex justify-between mb-3">
+              <span class="text-[10px] uppercase tracking-[.2em] text-white/40">Featured</span>
+              <span class="border border-white/15 bg-white/[.06] rounded-full px-2 py-0.5 text-[10px] text-white/70">New</span>
+            </div>
+            <div class="text-base font-medium tracking-tight">The Obsidian Series</div>
+            <p class="mt-2 text-[13px] text-white/55 leading-relaxed">A study in restraint. Matte blacks, sharp silhouettes.</p>
+            <a href="#shop" class="mt-4 inline-flex text-[13px] font-medium hover:opacity-70">Explore →</a>
+          </div>
+
+          <div class="glass rounded-2xl p-6">
+            <div class="text-[10px] uppercase tracking-[.2em] text-white/40 mb-4">Concierge</div>
+            <div class="space-y-3 text-[13px]">
+              <div class="flex justify-between">
+                <span class="text-white/40 text-xs">WhatsApp</span>
+                <a href="https://wa.me/8801826076327" target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white">01826076327</a>
+              </div>
+              <div class="h-px bg-white/[.06]"></div>
+              <div class="flex justify-between gap-3">
+                <span class="text-white/40 text-xs">Email</span>
+                <a href="mailto:paularjun45m@gmail.com" class="text-white/80 hover:text-white truncate">paularjun45m@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<section class="border-y border-white/[.06] bg-black py-6 overflow-hidden" aria-label="Tomex highlights">
+  <div class="marq" id="marq"></div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="shop" class="py-20 sm:py-28 lg:py-32">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+    <div class="reveal mb-14 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div>
+        <div class="text-[11px] uppercase tracking-[.2em] text-white/40 font-medium mb-3">Shop · SS26</div>
+        <h2 class="max-w-lg text-3xl sm:text-4xl lg:text-5xl font-medium leading-[1.1] tracking-[-.03em]">The essential edit.</h2>
+      </div>
+      <p class="max-w-sm text-sm text-white/45 leading-relaxed">Four pieces. Zero compromise. Built to be worn into the ground.</p>
+    </div>
+    <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10"></div>
+  </div>
+</section>
+
+<!-- EDITORIAL -->
+<section id="editorial" class="border-y border-white/[.06] bg-[#080808] py-20 sm:py-28 lg:py-32">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 grid lg:grid-cols-2 gap-12 lg:gap-20 lg:items-center">
+
+    <div class="reveal relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/[.06]">
+      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=80" alt="Tomex fashion editorial" loading="lazy" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+      <div class="absolute bottom-6 left-6 right-6">
+        <div class="text-[10px] uppercase tracking-[.2em] text-white/50">Editorial · 01</div>
+        <div class="mt-2 text-2xl sm:text-3xl font-medium tracking-tight">Quiet confidence.</div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="text-[11px] uppercase tracking-[.2em] text-white/40 font-medium mb-4">Our craft</div>
+      <h2 class="max-w-lg text-3xl sm:text-4xl lg:text-5xl font-medium leading-[1.1] tracking-[-.03em]">Made for people who don't shout.</h2>
+      <p class="mt-6 max-w-md text-[15px] text-white/55 leading-relaxed">
+        Tomex began with a single question — what if you could build clothing that felt like a well-kept secret? Every piece is cut, sewn and finished in small batches.
+      </p>
+
+      <div class="mt-10 grid grid-cols-2 gap-x-8 gap-y-8">
+        <div><div class="silk text-2xl sm:text-3xl">150+</div><div class="text-[11px] uppercase tracking-[.18em] text-white/40 mt-1">Hours per piece</div></div>
+        <div><div class="silk text-2xl sm:text-3xl">12</div><div class="text-[11px] uppercase tracking-[.18em] text-white/40 mt-1">Materials</div></div>
+        <div><div class="silk text-2xl sm:text-3xl">4</div><div class="text-[11px] uppercase tracking-[.18em] text-white/40 mt-1">Ateliers</div></div>
+        <div><div class="silk text-2xl sm:text-3xl">∞</div><div class="text-[11px] uppercase tracking-[.18em] text-white/40 mt-1">Built to last</div></div>
+      </div>
+
+      <a href="https://wa.me/8801826076327" target="_blank" rel="noopener noreferrer" class="mt-10 inline-flex items-center gap-2 text-sm font-medium hover:opacity-70">Talk to our concierge →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="story" class="py-20 sm:py-28 lg:py-32">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+    <div class="reveal mb-14 text-center">
+      <div class="text-[11px] uppercase tracking-[.2em] text-white/40 font-medium mb-3">Word of mouth</div>
+      <h2 class="max-w-2xl mx-auto text-3xl sm:text-4xl lg:text-5xl font-medium leading-[1.1] tracking-[-.03em]">Trusted by the quietly obsessed.</h2>
+    </div>
+    <div id="reviews" class="grid grid-cols-1 md:grid-cols-3 gap-5"></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="border-t border-white/[.06] bg-[#080808] py-20 sm:py-28">
+  <div class="max-w-3xl mx-auto px-5 text-center">
+    <div class="reveal">
+      <div class="text-[11px] uppercase tracking-[.2em] text-white/40 font-medium mb-4">The list</div>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-medium leading-[1.1] tracking-[-.03em]">First access. No noise.</h2>
+      <p class="mt-5 max-w-md mx-auto text-sm text-white/50 leading-relaxed">One email when a collection drops. Nothing else.</p>
+
+      <form id="subForm" class="mt-8 max-w-md mx-auto flex flex-col sm:flex-row gap-3 sm:items-center sm:glass sm:rounded-full sm:p-1.5">
+        <input type="email" required autocomplete="email" placeholder="your@email.com" aria-label="Email address" class="w-full sm:flex-1 rounded-full sm:rounded-none border border-white/10 sm:border-0 bg-white/[.03] sm:bg-transparent px-5 py-3 sm:py-2.5 text-sm outline-none focus:border-white/25 placeholder-white/30">
+        <button type="submit" class="bg-white text-black rounded-full px-6 py-3 sm:py-2.5 text-sm font-medium hover:bg-white/90">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/[.06] bg-black">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <div class="col-span-2 lg:col-span-1">
+        <div class="flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-white shadow-[0_0_12px_rgba(255,255,255,.9)]"></div>
+          <span class="text-base font-semibold tracking-tight">tomex</span>
+        </div>
+        <p class="mt-4 max-w-xs text-[13px] text-white/45 leading-relaxed">Precision-crafted essentials from Dhaka. Built for the relentless.</p>
+      </div>
+
+      <div>
+        <div class="text-[11px] uppercase tracking-[.2em] text-white/35 font-medium mb-4">Shop</div>
+        <ul class="space-y-3 text-[13px]">
+          <li><a href="#shop" class="text-white/60 hover:text-white">New In</a></li>
+          <li><a href="#shop" class="text-white/60 hover:text-white">Outerwear</a></li>
+          <li><a href="#shop" class="text-white/60 hover:text-white">Essentials</a></li>
+          <li><a href="#shop" class="text-white/60 hover:text-white">Sale</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="text-[11px] uppercase tracking-[.2em] text-white/35 font-medium mb-4">Company</div>
+        <ul class="space-y-3 text-[13px]">
+          <li><a href="#editorial" class="text-white/60 hover:text-white">Our Story</a></li>
+          <li><a href="#editorial" class="text-white/60 hover:text-white">Editorial</a></li>
+          <li><a href="#" class="text-white/60 hover:text-white">Ateliers</a></li>
+          <li><a href="#" class="text-white/60 hover:text-white">Careers</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="text-[11px] uppercase tracking-[.2em] text-white/35 font-medium mb-4">Contact</div>
+        <ul class="space-y-3 text-[13px]">
+          <li><a href="https://wa.me/8801826076327" target="_blank" rel="noopener noreferrer" class="text-white/60 hover:text-white">WhatsApp 01826076327</a></li>
+          <li><a href="mailto:paularjun45m@gmail.com" class="text-white/60 hover:text-white break-all">paularjun45m@gmail.com</a></li>
+          <li class="text-white/45">Dhaka · Bangladesh</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="mt-14 pt-8 border-t border-white/[.06] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="text-[12px] text-white/35">© 2026 Tomex. All rights reserved.</div>
+      <div class="flex items-center gap-6 text-[12px] text-white/35">
+        <a href="#" class="hover:text-white">Privacy</a>
+        <a href="#" class="hover:text-white">Terms</a>
+        <a href="#" class="hover:text-white">Shipping</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div id="overlay" onclick="closeCart()" class="fixed inset-0 z-40 bg-black/75 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300" aria-hidden="true"></div>
+
+<aside id="cart" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-black/95 backdrop-blur-2xl border-l border-white/10 flex flex-col translate-x-full transition-transform duration-500" style="transition-timing-function:cubic-bezier(.16,1,.3,1)" aria-label="Shopping cart">
+  <div class="flex items-center justify-between px-6 py-5 border-b border-white/[.08]">
+    <div class="flex items-center gap-3">
+      <span class="text-sm font-semibold">Your cart</span>
+      <span id="cc2" class="bg-white/10 rounded-full px-2 py-0.5 text-[11px] text-white/70">0</span>
+    </div>
+    <button type="button" onclick="closeCart()" aria-label="Close cart" class="text-white/50 hover:text-white">✕</button>
+  </div>
+
+  <div id="cartBody" class="flex-1 overflow-y-auto px-6 py-6"></div>
+
+  <div id="cartFoot" class="border-t border-white/[.08] px-6 py-5 hidden">
+    <div class="flex justify-between text-sm">
+      <span class="text-white/50">Subtotal</span>
+      <span id="total" class="font-medium">৳0</span>
+    </div>
+
+    <a id="waCheckout" href="#" target="_blank" rel="noopener noreferrer" class="mt-5 flex items-center justify-center w-full bg-white text-black rounded-full px-6 py-3.5 text-sm font-medium hover:bg-white/90">Checkout on WhatsApp</a>
+    <button type="button" onclick="closeCart()" class="mt-3 w-full border border-white/10 rounded-full px-6 py-3 text-sm text-white/70 hover:bg-white/[.05] hover:text-white">Continue shopping</button>
+  </div>
+</aside>
+
+<script>
+'use strict';
+
+/* ---------- DATA ---------- */
+const products = [
+  {
+    id:'obsidian-01',
+    name:'Obsidian Overcoat',
+    cat:'Outerwear',
+    price:24500,
+    tag:'New',
+    img:'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800&q=80'
+  },
+  {
+    id:'monolith-02',
+    name:'Monolith Tee',
+    cat:'Essentials',
+    price:3200,
+    tag:'Bestseller',
+    img:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80'
+  },
+  {
+    id:'vector-03',
+    name:'Vector Cargo',
+    cat:'Bottoms',
+    price:8900,
+    tag:null,
+    img:'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&q=80'
+  },
+  {
+    id:'signal-04',
+    name:'Signal Runner',
+    cat:'Footwear',
+    price:14200,
+    tag:'Limited',
+    img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80'
+  }
+];
+
+const reviews = [
+  {
+    q:"The only coat I have worn three winters straight. Still looks better than day one.",
+    n:'Sara Klein',
+    r:'Dir of Operations',
+    a:'https://i.pravatar.cc/72?img=12'
+  },
+  {
+    q:"Tomex understands restraint. No logos, no noise — just impossibly good fabric.",
+    n:'Rafiq Anwar',
+    r:'Architect',
+    a:'https://i.pravatar.cc/72?img=33'
+  },
+  {
+    q:"Ordered on a whim. Now half my wardrobe is from here. That is the entire review.",
+    n:'Mika Tanaka',
+    r:'Creative Director',
+    a:'https://i.pravatar.cc/72?img=45'
+  }
+];
+
+const bdt = n => '৳' + Number(n).toLocaleString('en-BD');
+
+/* ---------- RENDER PRODUCTS ---------- */
+const grid = document.getElementById('grid');
+
+grid.innerHTML = products.map((p,i) => `
+  <div class="reveal prod" style="transition-delay:${i*80}ms">
+    <div class="relative aspect-[3/4] rounded-xl overflow-hidden border border-white/[.06] bg-white/[.02]">
+      <img src="${p.img}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover">
+      ${p.tag ? `<span class="absolute top-3 left-3 bg-black/60 border border-white/20 rounded-full px-2.5 py-1 text-[10px] uppercase tracking-[.15em] backdrop-blur-xl">${p.tag}</span>` : ''}
+      <button
+        type="button"
+        data-product-id="${p.id}"
+        class="add-btn btn absolute bottom-3 inset-x-3 bg-white text-black rounded-full py-3 text-[13px] font-medium"
+      >Add to cart</button>
+    </div>
+
+    <div class="mt-4 flex items-start justify-between gap-3">
+      <div>
+        <div class="text-[10px] uppercase tracking-[.18em] text-white/35">${p.cat}</div>
+        <div class="mt-1 text-[15px] font-medium tracking-tight">${p.name}</div>
+      </div>
+      <div class="text-[15px] font-medium text-white/85">${bdt(p.price)}</div>
+    </div>
+  </div>
+`).join('');
+
+document.querySelectorAll('.add-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const product = products.find(p => p.id === btn.dataset.productId);
+    if (product) addToCart(product);
+  });
+});
+
+/* ---------- RENDER REVIEWS ---------- */
+document.getElementById('reviews').innerHTML = reviews.map((t,i) => `
+  <div class="reveal glass rounded-2xl p-6 sm:p-7 flex flex-col h-full" style="transition-delay:${i*100}ms">
+    <div class="text-4xl text-white/15 leading-none mb-5">"</div>
+    <p class="flex-1 text-[15px] text-white/70 leading-relaxed">${t.q}</p>
+
+    <div class="mt-6 pt-5 border-t border-white/[.06] flex items-center gap-3">
+      <img src="${t.a}" alt="${t.n}" loading="lazy" class="w-9 h-9 rounded-full object-cover bg-white/10">
+      <div>
+        <div class="text-[13px] font-medium">${t.n}</div>
+        <div class="text-[11px] text-white/45">${t.r}</div>
+      </div>
+    </div>
+  </div>
+`).join('');
+
+/* ---------- MARQUEE ---------- */
+const items = [
+  'FREE SHIPPING OVER ৳5,000',
+  'MADE IN DHAKA',
+  '30-DAY RETURNS',
+  'CRAFTED IN SMALL BATCHES',
+  'SECURE CHECKOUT',
+  'WORLDWIDE DELIVERY'
+];
+
+const block = items.map(t =>
+  `<span class="text-[11px] uppercase tracking-[.3em] text-white/35 whitespace-nowrap">${t} <span class="text-white/20 ml-16">◆</span></span>`
+).join('');
+
+document.getElementById('marq').innerHTML =
+  `<div class="flex gap-16 pr-16 shrink-0">${block}</div>
+   <div class="flex gap-16 pr-16 shrink-0">${block}</div>`;
+
+/* ---------- REVEAL ---------- */
+const revealElements = document.querySelectorAll('.reveal');
+
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('on');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold:0.15,
+    rootMargin:'0px 0px -60px 0px'
+  });
+
+  revealElements.forEach(el => io.observe(el));
+} else {
+  revealElements.forEach(el => el.classList.add('on'));
+}
+
+/* ---------- CART ---------- */
+let cart = [];
+
+function addToCart(product) {
+  const found = cart.find(item => item.id === product.id);
+
+  if (found) {
+    found.qty += 1;
+  } else {
+    cart.push({...product, qty:1});
+  }
+
+  renderCart();
+  openCart();
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(x => x.id === id);
+  if (!item) return;
+
+  item.qty += delta;
+
+  if (item.qty <= 0) {
+    cart = cart.filter(x => x.id !== id);
+  }
+
+  renderCart();
+}
+
+function removeItem(id) {
+  cart = cart.filter(x => x.id !== id);
+  renderCart();
+}
+
+function openCart() {
+  document.getElementById('cart').classList.remove('translate-x-full');
+  document.getElementById('overlay').classList.remove('opacity-0','pointer-events-none');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCart() {
+  document.getElementById('cart').classList.add('translate-x-full');
+  document.getElementById('overlay').classList.add('opacity-0','pointer-events-none');
+  document.body.style.overflow = '';
+}
+
+function renderCart() {
+  const count = cart.reduce((sum,item) => sum + item.qty, 0);
+  const total = cart.reduce((sum,item) => sum + item.qty * item.price, 0);
+
+  document.getElementById('cc').textContent = count;
+  document.getElementById('cc2').textContent = count;
+
+  const body = document.getElementById('cartBody');
+  const foot = document.getElementById('cartFoot');
+
+  if (!cart.length) {
+    body.innerHTML = `
+      <div class="h-full flex flex-col items-center justify-center text-center">
+        <div class="w-16 h-16 rounded-full border border-white/10 bg-white/[.03] flex items-center justify-center text-2xl mb-5">◯</div>
+        <div class="text-sm font-medium">Your cart is empty</div>
+        <p class="mt-1 text-xs text-white/45 max-w-[220px]">Add something you love.</p>
+        <button type="button" onclick="closeCart()" class="mt-6 bg-white text-black rounded-full px-5 py-2.5 text-[13px] font-medium">Continue shopping</button>
+      </div>
+    `;
+
+    foot.classList.add('hidden');
+    return;
+  }
+
+  foot.classList.remove('hidden');
+
+  body.innerHTML = `
+    <ul class="space-y-5">
+      ${cart.map(item => `
+        <li class="flex gap-4">
+          <div class="w-16 h-20 rounded-lg overflow-hidden border border-white/[.06] bg-white/[.02] shrink-0">
+            <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover">
+          </div>
+
+          <div class="flex-1 flex flex-col justify-between py-0.5">
+            <div class="flex justify-between gap-2">
+              <div>
+                <div class="text-[13px] font-medium">${item.name}</div>
+                <div class="text-[11px] uppercase tracking-[.15em] text-white/35 mt-0.5">${item.cat}</div>
+              </div>
+              <button type="button" onclick="removeItem('${item.id}')" class="text-[11px] text-white/35 hover:text-white">Remove</button>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2 border border-white/10 bg-white/[.03] rounded-full p-0.5">
+                <button type="button" onclick="changeQty('${item.id}',-1)" class="w-6 h-6 rounded-full text-white/70 hover:bg-white/10 hover:text-white">−</button>
+                <span class="text-[12px] font-medium min-w-[16px] text-center">${item.qty}</span>
+                <button type="button" onclick="changeQty('${item.id}',1)" class="w-6 h-6 rounded-full text-white/70 hover:bg-white/10 hover:text-white">+</button>
+              </div>
+
+              <div class="text-[13px] font-medium">${bdt(item.price * item.qty)}</div>
+            </div>
+          </div>
+        </li>
+      `).join('')}
+    </ul>
+  `;
+
+  document.getElementById('total').textContent = bdt(total);
+
+  const message =
+    `Hi Tomex, I'd like to order:\n` +
+    cart.map(item => `• ${item.name} × ${item.qty}`).join('\n') +
+    `\n\nSubtotal: ${bdt(total)}`;
+
+  document.getElementById('waCheckout').href =
+    `https://wa.me/8801826076327?text=${encodeURIComponent(message)}`;
+}
+
+/* ---------- NEWSLETTER ---------- */
+document.getElementById('subForm').addEventListener('submit', event => {
+  event.preventDefault();
+
+  event.currentTarget.outerHTML = `
+    <div class="mt-8 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-5 py-3 text-sm text-emerald-300">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+      You're on the list. Welcome.
+    </div>
+  `;
+});
+
+/* ---------- NAV SCROLL ---------- */
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+
+  if (window.scrollY > 40) {
+    nav.classList.add('bg-black/60','backdrop-blur-2xl','border-b','border-white/[.06]');
+  } else {
+    nav.classList.remove('bg-black/60','backdrop-blur-2xl','border-b','border-white/[.06]');
+  }
+}, {passive:true});
+
+/* ---------- KEYBOARD / ACCESSIBILITY ---------- */
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') closeCart();
+});
+
+/* ---------- THREE.JS 3D SCENE ---------- */
+(function initThree() {
+  const container = document.getElementById('three');
+
+  if (!window.THREE) {
+    container.style.display = 'none';
+    return;
+  }
+
+  try {
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x050505, 0.035);
+
+    const camera = new THREE.PerspectiveCamera(
+      45,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      100
+    );
+    camera.position.set(0, 0, 7);
+
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
+
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.15;
+    renderer.outputEncoding = THREE.sRGBEncoding;
+
+    container.appendChild(renderer.domElement);
+
+    const knot = new THREE.Mesh(
+      new THREE.TorusKnotGeometry(1.35, 0.42, 160, 32, 2, 3),
+      new THREE.MeshStandardMaterial({
+        color: 0x141414,
+        metalness: 0.95,
+        roughness: 0.18
+      })
+    );
+    scene.add(knot);
+
+    const inner = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(2.4, 1),
+      new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.06
+      })
+    );
+    scene.add(inner);
+
+    const particleCount = window.innerWidth < 768 ? 650 : 1200;
+    const positions = new Float32Array(particleCount * 3);
+
+    for (let i = 0; i < particleCount; i++) {
+      const radius = 3.5 + Math.random() * 7;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+
+      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      positions[i * 3 + 2] = radius * Math.cos(phi);
+    }
+
+    const particleGeometry = new THREE.BufferGeometry();
+    particleGeometry.setAttribute(
+      'position',
+      new THREE.BufferAttribute(positions, 3)
+    );
+
+    const particles = new THREE.Points(
+      particleGeometry,
+      new THREE.PointsMaterial({
+        size: 0.025,
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.55,
+        sizeAttenuation: true,
+        depthWrite: false
+      })
+    );
+
+    scene.add(particles);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.15));
+
+    const key = new THREE.PointLight(0xffffff, 60, 30, 2);
+    key.position.set(5, 6, 5);
+    scene.add(key);
+
+    const rim1 = new THREE.PointLight(0x4f7fff, 40, 30, 2);
+    rim1.position.set(-6, -3, 3);
+    scene.add(rim1);
+
+    const rim2 = new THREE.PointLight(0xff8844, 25, 30, 2);
+    rim2.position.set(4, -6, -3);
+    scene.add(rim2);
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    window.addEventListener('mousemove', event => {
+      mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    }, {passive:true});
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    });
+
+    const clock = new THREE.Clock();
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const time = clock.getElapsedTime();
+
+      if (!reducedMotion) {
+        knot.rotation.x = time * 0.08;
+        knot.rotation.y = time * 0.12;
+
+        inner.rotation.x = -time * 0.04;
+        inner.rotation.y = time * 0.05;
+
+        particles.rotation.y = time * 0.015;
+        particles.rotation.x = time * 0.008;
+
+        targetX = mouseX * 0.7;
+        targetY = mouseY * 0.5;
+
+        camera.position.x += (targetX - camera.position.x) * 0.035;
+        camera.position.y += (targetY - camera.position.y) * 0.035;
+      }
+
+      camera.lookAt(0, 0, 0);
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+  } catch (error) {
+    console.warn('Tomex 3D scene could not initialize:', error);
+    container.style.display = 'none';
+  }
+})();
+
+/* ---------- INITIAL CART STATE ---------- */
+renderCart();
+</script>
+
+</body>
+</html>
